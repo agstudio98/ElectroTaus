@@ -80,12 +80,12 @@ export function Catalog() {
     <section className="section">
 
       {/* ── Barra de filtros ── */}
-      <div style={{ background: 'var(--bg-2)', borderBottom: '1px solid var(--border)', padding: '1.5rem 0', marginBottom: '3rem' }}>
+      <div className="catalog-filters-bar">
         <div className="container">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          <div className="catalog-filters-container">
 
-            {/* Pills */}
-            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+            {/* Pills scrollable */}
+            <div className="filter-pills-scroll">
               {categories.map((c) => (
                 <button
                   key={c.value}
@@ -99,7 +99,7 @@ export function Catalog() {
 
             {/* Select precio */}
             <div className="filter-group">
-              <span style={{ fontSize: '0.72rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-dim)' }}>
+              <span className="filter-label">
                 Precio:
               </span>
               <select value={price} onChange={(e) => setPrice(e.target.value)}>
@@ -125,7 +125,7 @@ export function Catalog() {
         </div>
 
         {filtered.length > 0 ? (
-          <div className="grid">
+          <div className="grid catalog-grid">
             {filtered.map((product, idx) => (
               <div
                 key={product.id}

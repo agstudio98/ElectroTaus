@@ -69,7 +69,7 @@ export function Timeline() {
       <div className="container">
         <div className="section-header animate-rise">
           <span className="section-eyebrow">Historia ElectroTaus</span>
-          <h2 style={{ fontFamily: 'Geo', fontSize: '2.5rem', color: '#000' }}>Cronología</h2>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem' }}>Cronología</h2>
         </div>
 
         <div className="timeline-3d">
@@ -83,6 +83,9 @@ export function Timeline() {
             return (
               <div
                 key={index}
+                ref={(el) => {
+                  itemsRef.current[index] = el;
+                }}
                 className={`tl-entry ${isEven ? 'tl-left' : 'tl-right'}`}
                 style={{
                   opacity: 0,

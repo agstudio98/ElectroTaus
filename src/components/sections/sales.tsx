@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function Sales() {
   const promos = [
     { title: 'Oferta Cocina', desc: '20% off electrodomésticos', price: '-$50' },

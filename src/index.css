@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Geo&family=DM+Sans:wght@300;400;500&display=swap');
+
 /* ============================================================
    ELECTROTAUS — Enhanced UI 2026
    3D Immersive & Animated Design System
@@ -1615,7 +1617,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--orange) transparent; }
   .mission-text-col { padding: 1.5rem; }
   .about-values-grid { grid-template-columns: 1fr; }
   .timeline-spine { left: 24px; transform: none; }
-  .tl-entry, .tl-left, .tl-right { width: 100%; margin: 0 0 2rem 60px; }
+  .tl-entry, .tl-left, .tl-right { width: calc(100% - 80px); margin: 0 20px 2rem 60px; }
   .tl-left .tl-node, .tl-right .tl-node { left: -4rem; right: auto; }
   .carousel-inner { flex-direction: column; padding: 3rem 2rem; text-align: center; }
   .carousel-thumb-wrap { width: 160px; height: 160px; }
@@ -1629,8 +1631,6 @@ html { scrollbar-width: thin; scrollbar-color: var(--orange) transparent; }
   .carousel-arrow { display: none; }
   .offerts-grid, .promo-grid { grid-template-columns: 1fr; }
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Geo&family=DM+Sans:wght@300;400;500&display=swap');
 
 /* ── Tokens ─────────────────────────────────────────── */
 :root {
@@ -1845,18 +1845,19 @@ p  { line-height: 1.65; }
     width: 100%;
     flex-direction: column;
     align-items: stretch;
-    background: rgba(8,8,8,0.97);
+    background: rgba(15, 15, 15, 0.98);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    padding: 0.75rem 1.5rem 1.25rem;
-    gap: 0;
+    padding: 1rem 1.5rem 1.5rem;
+    gap: 0.5rem;
+    z-index: 1001;
     /* Slide down */
-    transform: translateY(-8px);
+    transform: translateY(-15px);
     opacity: 0;
     pointer-events: none;
     transition:
-      transform var(--t2) var(--ease),
-      opacity var(--t2) var(--ease);
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .navbar-nav.open {
     transform: translateY(0);
@@ -1864,13 +1865,25 @@ p  { line-height: 1.65; }
     pointer-events: auto;
   }
   .nav-link {
-    padding: 0.75rem 0;
-    font-size: 0.9rem;
-    border-bottom: 1px solid var(--border);
+    display: block;
+    padding: 1rem 0.75rem;
+    font-size: 0.95rem;
+    color: var(--text);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    transition: all 0.2s ease;
   }
-  .nav-link:last-child { border-bottom: none; }
-  .nav-link::after { display: none; }
-  .nav-link.active { color: var(--accent); }
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+  .nav-link::after {
+    display: none;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--accent);
+    background: rgba(255, 149, 0, 0.05);
+    padding-left: 1.25rem;
+  }
 }
 
 /* ── GRID / CARDS ───────────────────────────────────── */
@@ -2299,3 +2312,77 @@ p  { line-height: 1.65; }
   border-radius: 3px;
 }
 html { scroll-behavior: smooth; }
+
+/* ── CATALOG FILTERS & GRID RESPONSIVE ──────────────── */
+.catalog-filters-bar {
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 0;
+  margin-bottom: 2.5rem;
+}
+
+.catalog-filters-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.filter-pills-scroll {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  padding-bottom: 4px;
+}
+
+.filter-pills-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.filter-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .catalog-filters-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .filter-pills-scroll {
+    width: 100%;
+    padding: 0.25rem 0;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .filter-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+  
+  .filter-group select {
+    width: 60%;
+    max-width: 200px;
+  }
+  
+  .catalog-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important;
+    gap: 0.75rem !important;
+  }
+  
+  .catalog-grid .card {
+    padding: 1rem !important;
+  }
+}
