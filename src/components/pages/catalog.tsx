@@ -50,6 +50,7 @@ function priceInRange(price: number, range: string) {
 export function Catalog() {
   const [category, setCategory] = useState('todos');
   const [price, setPrice]       = useState('todos');
+  const [searchTerm, setSearchTerm] = useState('');
   const [added, setAdded]       = useState<number | null>(null);
 
   const categories = [
@@ -67,7 +68,10 @@ export function Catalog() {
   ];
 
   const filtered = products.filter(
-    (p) => (category === 'todos' || p.category === category) && priceInRange(p.price, price)
+    (p) =>
+      (category === 'todos' || p.category === category) &&
+      priceInRange(p.price, price) &&
+      p.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleContact = (p: typeof products[0]) => {
@@ -77,36 +81,56 @@ export function Catalog() {
   };
 
   return (
-    <section className="section">
+    <section className="section catalog-section">
 
       {/* ── Barra de filtros ── */}
       <div className="catalog-filters-bar">
         <div className="container">
           <div className="catalog-filters-container">
 
-            {/* Pills scrollable */}
-            <div className="filter-pills-scroll">
-              {categories.map((c) => (
-                <button
-                  key={c.value}
-                  className={`filter-pill${category === c.value ? ' active' : ''}`}
-                  onClick={() => setCategory(c.value)}
-                >
-                  {c.label}
+            {/* Buscador */}
+            <div className="search-box">
+              <span className="search-icon">🔍</span>
+              <input
+                type="text"
+                placeholder="Buscar producto..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+              {searchTerm && (
+                <button className="search-clear" onClick={() => setSearchTerm('')} aria-label="Limpiar búsqueda">
+                  ✕
                 </button>
-              ))}
+              )}
             </div>
 
-            {/* Select precio */}
-            <div className="filter-group">
-              <span className="filter-label">
-                Precio:
-              </span>
-              <select value={price} onChange={(e) => setPrice(e.target.value)}>
-                {priceRanges.map((r) => (
-                  <option key={r.value} value={r.value}>{r.label}</option>
+            {/* Fila de filtros secundaria */}
+            <div className="mobile-filters-row">
+              {/* Pills scrollable */}
+              <div className="filter-pills-scroll">
+                {categories.map((c) => (
+                  <button
+                    key={c.value}
+                    className={`filter-pill${category === c.value ? ' active' : ''}`}
+                    onClick={() => setCategory(c.value)}
+                  >
+                    {c.label}
+                  </button>
                 ))}
-              </select>
+              </div>
+
+              {/* Select precio */}
+              <div className="filter-group">
+                <span className="filter-label">
+                  Precio:
+                </span>
+                <select value={price} onChange={(e) => setPrice(e.target.value)}>
+                  {priceRanges.map((r) => (
+                    <option key={r.value} value={r.value}>{r.label}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
           </div>
